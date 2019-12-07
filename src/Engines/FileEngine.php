@@ -3,6 +3,7 @@
 namespace Aschmelyun\Cleaver\Engines;
 
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\Filesystem\Filesystem;
 
 class FileEngine
 {
@@ -21,24 +22,23 @@ class FileEngine
         return self::OUTPUT_DIR . '/';
     }
 
-    public function cleanOutputDir()
+    public static function cleanOutputDir(bool $ignoreDotFiles = true, array $exclude = ['assets']): void
     {
         $finder = new Finder();
+        $filesystem = new Filesystem();
         $filesToRemove = $finder->files()
             ->in(self::OUTPUT_DIR)
-            ->ignoreDotFiles(true)
-            ->exclude(['assets']);
+            ->ignoreDotFiles($ignoreDotFiles)
+            ->exclude($exclude);
 
-        foreach($filesToRemove as $file)
-            unlink($file);
+        $filesystem->remove($filesToRemove);
 
         $directoriesToRemove = $finder->directories()
             ->in(self::OUTPUT_DIR)
-            ->ignoreDotFiles(true)
-            ->exclude(['assets']);
+            ->ignoreDotFiles($ignoreDotFiles)
+            ->exclude($exclude);
 
-        foreach(iterator_to_array($directoriesToRemove, true) as $dir)
-            rmdir($dir);
+        $filesystem->remove($directoriesToRemove);
     }
 
     public function getContentFiles(): array

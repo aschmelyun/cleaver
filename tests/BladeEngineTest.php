@@ -30,7 +30,7 @@ class BladeEngineTest extends TestCase
 
         $data = (object) self::VIEW_DATA_CORRECT;
 
-        $expected = "<h1>This is a test</h1>\n";
+        $expected = "<h1>This is a test</h1>";
         $actual = $bladeEngine->render($data);
 
         $this->assertEquals($expected, $actual);
