@@ -35,8 +35,6 @@ class Cleaver
                     $compiler = new JsonCompiler($contentFile);
                     break;
                 case 'md':
-                    $compiler = new MarkdownCompiler($contentFile);
-                    break;
                 case 'markdown':
                     $compiler = new MarkdownCompiler($contentFile);
                     break;
