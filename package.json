@@ -10,11 +10,12 @@
     },
     "devDependencies": {
         "bootstrap": "^4.4.1",
+        "popper.js": "1.16.0",
         "browser-sync": "^2.26.7",
         "browser-sync-webpack-plugin": "^2.0.1",
         "cross-env": "^3.2.3",
         "jquery": "^3.4.1",
-        "laravel-mix": "^2.0.0",
+        "laravel-mix": "^5.0.0",
         "lodash": "^4.17.15",
         "mix-tailwindcss": "^1.2.0",
         "node-cmd": "^3.0.0",
