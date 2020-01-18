@@ -6,6 +6,7 @@ require('mix-tailwindcss');
 
 mix.disableNotifications();
 mix.webpackConfig({
+    devServer: { open: true },
     plugins: [
         build.cleaver
     ]
@@ -21,6 +22,7 @@ mix.setPublicPath('./')
    .version();
 
 mix.browserSync({
+    open: false,
     files: [
         {
             match: ["resources/**/*"],
