@@ -8,3 +8,4 @@ yarn-error.log
 /dist
 .phpunit.result.cache
 mix-manifest.json
+hot
