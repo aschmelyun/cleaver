@@ -36,9 +36,9 @@ class MarkdownCompiler
             $json->{$headerParts[0]} = trim($headerParts[1]);
         }
 
-        $content = explode('---', $markdown, 3);
+        $body = explode('---', $markdown, 3);
         $parsedown = new \Parsedown();
-        $json->content = $parsedown->text(end($content));
+        $json->body = $parsedown->text(end($body));
 
         return $json;
     }
