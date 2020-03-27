@@ -3,6 +3,7 @@
 namespace Aschmelyun\Cleaver\Compilers;
 
 use Aschmelyun\Cleaver\Engines\FileEngine;
+use Symfony\Component\Finder\SplFileInfo;
 
 class JsonCompiler
 {
@@ -10,12 +11,12 @@ class JsonCompiler
     public $json;
     public $file;
 
-    public function __construct(string $file)
+    public function __construct(SplFileInfo $file)
     {
         $this->file = $file;
 
         $this->json = json_decode(
-            file_get_contents(FileEngine::contentDir() . $file)
+            $file->getContents()
         );
 
         $this->json->mix = FileEngine::mixManifestData();
