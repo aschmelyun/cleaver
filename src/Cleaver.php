@@ -5,6 +5,7 @@ namespace Aschmelyun\Cleaver;
 use Aschmelyun\Cleaver\Compilers\JsonCompiler;
 use Aschmelyun\Cleaver\Compilers\MarkdownCompiler;
 use Aschmelyun\Cleaver\Engines\BladeEngine;
+use Aschmelyun\Cleaver\Engines\ContentEngine;
 use Aschmelyun\Cleaver\Engines\FileEngine;
 use Aschmelyun\Cleaver\Output\Display;
 
@@ -13,18 +14,21 @@ class Cleaver
 
     private $buildTime;
     private $buildAmount = 0;
+    private $basePath;
 
-    public function __construct()
+    public function __construct(?string $basePath = null)
     {
         $this->buildTime['start'] = microtime(true);
         $this->buildTime['end'] = 0;
+
+        $this->basePath = $basePath ? $basePath : dirname(__FILE__, 2);
     }
 
     public function build(): void
     {
-        $blade = new BladeEngine();
+        $blade = new BladeEngine($this->basePath);
 
-        $fileEngine = new FileEngine();
+        $fileEngine = new FileEngine($this->basePath);
         $fileEngine->cleanOutputDir();
 
         foreach($fileEngine->getContentFiles() as $contentFile) {
@@ -44,6 +48,7 @@ class Cleaver
             }
 
             if($compiler && $compiler->checkFormatting()) {
+                $compiler->json->content = ContentEngine::generateCollection($fileEngine);
                 $blade->save($blade->render($compiler->json));
                 echo Display::success($compiler->file . ' saved successfully.');
 

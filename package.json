@@ -10,7 +10,6 @@
     },
     "devDependencies": {
         "bootstrap": "^4.4.1",
-        "popper.js": "1.16.0",
         "browser-sync": "^2.26.7",
         "browser-sync-webpack-plugin": "^2.0.1",
         "cross-env": "^3.2.3",
@@ -20,8 +19,12 @@
         "mix-tailwindcss": "^1.2.0",
         "node-cmd": "^3.0.0",
         "on-build-webpack": "^0.1.0",
+        "popper.js": "1.16.0",
+        "sass": "^1.26.3",
+        "sass-loader": "^8.0.2",
         "tailwindcss": "^1.1.4",
         "vue": "^2.6.10",
+        "vue-template-compiler": "^2.6.11",
         "webpack-watch": "^0.2.0"
     }
 }

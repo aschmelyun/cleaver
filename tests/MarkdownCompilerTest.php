@@ -4,6 +4,7 @@ namespace Tests;
 
 use Aschmelyun\Cleaver\Compilers\MarkdownCompiler;
 use Aschmelyun\Cleaver\Engines\FileEngine;
+use Symfony\Component\Finder\SplFileInfo;
 
 class MarkdownCompilerTest extends TestCase
 {
@@ -22,9 +23,11 @@ class MarkdownCompilerTest extends TestCase
         
         # This is a test
         ';
-        $contentFile = 'test.md';
+        $contentFile = FileEngine::contentDir() . 'test.md';
 
-        file_put_contents(FileEngine::contentDir() . $contentFile, $content);
+        file_put_contents($contentFile, $content);
+
+        $contentFile = new SplFileInfo($contentFile, FileEngine::contentDir(), $contentFile);
         $compiler = new MarkdownCompiler($contentFile);
 
         $expected = 'layout.test';
@@ -53,9 +56,11 @@ class MarkdownCompilerTest extends TestCase
         
         # This is a test
         ';
-        $contentFile = 'test.md';
+        $contentFile = FileEngine::contentDir() . 'test.md';
 
-        file_put_contents(FileEngine::contentDir() . $contentFile, $content);
+        file_put_contents($contentFile, $content);
+
+        $contentFile = new SplFileInfo($contentFile, FileEngine::contentDir(), $contentFile);
         $compiler = new MarkdownCompiler($contentFile);
 
         $this->assertFalse($compiler->checkFormatting());
@@ -74,9 +79,11 @@ class MarkdownCompilerTest extends TestCase
         
         # This is a test
         ';
-        $contentFile = 'test.md';
+        $contentFile = FileEngine::contentDir() . 'test.md';
 
-        file_put_contents(FileEngine::contentDir() . $contentFile, $content);
+        file_put_contents($contentFile, $content);
+
+        $contentFile = new SplFileInfo($contentFile, FileEngine::contentDir(), $contentFile);
         $compiler = new MarkdownCompiler($contentFile);
 
         $this->assertFalse($compiler->checkFormatting());
@@ -96,9 +103,11 @@ class MarkdownCompilerTest extends TestCase
         
         # This is a test
         ';
-        $contentFile = 'test.md';
+        $contentFile = FileEngine::contentDir() . 'test.md';
 
-        file_put_contents(FileEngine::contentDir() . $contentFile, $content);
+        file_put_contents($contentFile, $content);
+
+        $contentFile = new SplFileInfo($contentFile, FileEngine::contentDir(), $contentFile);
         $compiler = new MarkdownCompiler($contentFile);
 
         $this->assertTrue($compiler->checkFormatting());

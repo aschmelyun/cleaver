@@ -3,6 +3,7 @@
 namespace Tests;
 
 use Aschmelyun\Cleaver\Engines\FileEngine;
+use Illuminate\Support\Facades\File;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 
 class TestCase extends BaseTestCase
@@ -50,12 +51,14 @@ class TestCase extends BaseTestCase
     {
         file_put_contents(self::TEST_VIEW_PATH,'<h1>{{ $title }}</h1>');
 
+        $fileEngine = new FileEngine();
+
         if(!is_dir(FileEngine::outputDir())) {
             mkdir(FileEngine::outputDir() . 'assets/css', 0777, true);
         }
 
-        if(!is_file(FileEngine::MIX_MANIFEST_FILE)) {
-            file_put_contents(FileEngine::MIX_MANIFEST_FILE, json_encode(self::MIX_MANIFEST_TEST_DATA));
+        if(!is_file(FileEngine::mixManifest())) {
+            file_put_contents(FileEngine::mixManifest(), json_encode(self::MIX_MANIFEST_TEST_DATA));
         }
     }
 
@@ -68,8 +71,8 @@ class TestCase extends BaseTestCase
             rmdir(FileEngine::outputDir());
         }
 
-        if(is_file(FileEngine::MIX_MANIFEST_FILE)) {
-            unlink(FileEngine::MIX_MANIFEST_FILE);
+        if(is_file(FileEngine::mixManifest())) {
+            unlink(FileEngine::mixManifest());
         }
 
         if(is_file(FileEngine::contentDir() . 'test.json')) {
