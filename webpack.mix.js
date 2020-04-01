@@ -6,7 +6,12 @@ require('mix-tailwindcss');
 
 mix.disableNotifications();
 mix.webpackConfig({
-    devServer: { open: true },
+    devServer: {
+      contentBase: path.join(__dirname, 'dist'),
+      compress: true,
+      open: true,
+      port: 8000,
+    },
     plugins: [
         build.cleaver
     ]
