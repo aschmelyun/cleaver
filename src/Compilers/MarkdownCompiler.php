@@ -3,6 +3,7 @@
 namespace Aschmelyun\Cleaver\Compilers;
 
 use Aschmelyun\Cleaver\Engines\FileEngine;
+use Symfony\Component\Finder\SplFileInfo;
 
 class MarkdownCompiler
 {
@@ -10,12 +11,12 @@ class MarkdownCompiler
     public $json;
     public $file;
 
-    public function __construct(string $file)
+    public function __construct(SplFileInfo $file)
     {
         $this->file = $file;
 
         $this->json = $this->parseMarkdown(
-            file_get_contents(FileEngine::contentDir() . $file)
+            $file->getContents()
         );
 
         $this->json->mix = FileEngine::mixManifestData();
@@ -35,9 +36,9 @@ class MarkdownCompiler
             $json->{$headerParts[0]} = trim($headerParts[1]);
         }
 
-        $content = explode('---', $markdown, 3);
+        $body = explode('---', $markdown, 3);
         $parsedown = new \Parsedown();
-        $json->content = $parsedown->text(end($content));
+        $json->body = $parsedown->text(end($body));
 
         return $json;
     }

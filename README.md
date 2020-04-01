@@ -56,7 +56,8 @@ You can then publish your entire project to a host of your choice as long as the
 ## Roadmap
 Cleaver is still very much in development, and while it's designed to remain as simple as possible there's a few features that could make for a better overall experience. Here's what's on the path ahead:
 
-- [ ] Ability to use folders in content directory
+- [x] Ability to use folders in content directory
+- [x] Add collection containing all content into each view
 - [ ] Ability to add in and use HTML in JSON content files
 - [ ] More detailed build errors if something goes wrong
 - [ ] A better cli interface and style during site builds

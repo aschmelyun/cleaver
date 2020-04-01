@@ -7,5 +7,5 @@ if (file_exists(__DIR__.'/vendor/autoload.php')) {
     require __DIR__.'/vendor/autoload.php';
 }
 
-$cleaver = new Cleaver();
+$cleaver = new Cleaver(dirname(__FILE__));
 $cleaver->build();

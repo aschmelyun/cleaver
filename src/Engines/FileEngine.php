@@ -8,58 +8,80 @@ use Symfony\Component\Filesystem\Filesystem;
 class FileEngine
 {
 
-    const CONTENT_DIR = __DIR__ . '/../../resources/content';
-    const OUTPUT_DIR = __DIR__ . '/../../dist';
-    const MIX_MANIFEST_FILE = __DIR__ . '/../../mix-manifest.json';
+    private static $basePath;
+
+    public static $contentDir;
+    public static $outputDir;
+    public static $mixManifest;
+
+    public function __construct(?string $basePath = null)
+    {
+        self::$basePath = !empty($basePath) ? $basePath : dirname(__FILE__, 3);
+
+        self::$contentDir = self::$basePath . '/resources/content';
+        self::$outputDir = self::$basePath . '/dist';
+        self::$mixManifest = self::$basePath . '/mix-manifest.json';
+    }
 
     public static function contentDir(): string
     {
-        return self::CONTENT_DIR . '/';
+        return self::$contentDir . '/';
     }
 
     public static function outputDir(): string
     {
-        return self::OUTPUT_DIR . '/';
+        return self::$outputDir . '/';
+    }
+
+    public static function mixManifest(): string
+    {
+        return self::$mixManifest;
     }
 
     public static function cleanOutputDir(bool $ignoreDotFiles = true, array $exclude = ['assets']): void
     {
+        if(!is_dir(self::$outputDir)) {
+            return;
+        }
+
         $finder = new Finder();
         $filesystem = new Filesystem();
         $filesToRemove = $finder->files()
-            ->in(self::OUTPUT_DIR)
+            ->in(self::$outputDir)
             ->ignoreDotFiles($ignoreDotFiles)
             ->exclude($exclude);
 
         $filesystem->remove($filesToRemove);
 
         $directoriesToRemove = $finder->directories()
-            ->in(self::OUTPUT_DIR)
+            ->in(self::$outputDir)
             ->ignoreDotFiles($ignoreDotFiles)
             ->exclude($exclude);
 
         $filesystem->remove($directoriesToRemove);
     }
 
-    public function getContentFiles(): array
+    public function getContentFiles(): Finder
     {
-        return array_diff(
-            scandir(self::CONTENT_DIR),
-            ['.', '..']
-        );
+        $finder = new Finder();
+        return $finder->files()
+            ->in(self::$contentDir)
+            ->ignoreDotFiles(true)
+            ->name(['*.json', '*.md', '*.markdown'])
+            ->sortByModifiedTime();
     }
 
     public static function mixManifestData(): array
     {
         return json_decode(
-            str_replace('/dist', '', file_get_contents(self::MIX_MANIFEST_FILE)),
+            str_replace('/dist', '', file_get_contents(self::$mixManifest)),
             true
         );
     }
 
     public static function store(string $html, string $path): bool
     {
-        $outputDir = self::OUTPUT_DIR . '/' . $path;
+        $outputDir = self::$outputDir . $path;
 
         if(!is_dir($outputDir))
             mkdir($outputDir, 0755, true);
