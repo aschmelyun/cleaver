@@ -6,6 +6,6 @@ yarn-error.log
 .idea
 /cache
 /dist
+/hot
 .phpunit.result.cache
 mix-manifest.json
-hot
