@@ -14,11 +14,11 @@ class BladeEngineTest extends TestCase
     public function can_create_cache_dir_with_write_permissions()
     {
         $bladeEngine = new BladeEngine();
-        $this->assertTrue(is_dir($bladeEngine->cacheDir));
+        $this->assertDirectoryExists($bladeEngine->cacheDir);
 
         $expected = '0755';
         $actual = substr(sprintf('%o', fileperms($bladeEngine->cacheDir)), -4);
-        $this->assertEquals($expected, $actual);
+        $this->assertSame($expected, $actual);
     }
 
     /**
@@ -33,7 +33,7 @@ class BladeEngineTest extends TestCase
         $expected = "<h1>This is a test</h1>";
         $actual = $bladeEngine->render($data);
 
-        $this->assertEquals($expected, $actual);
+        $this->assertSame($expected, $actual);
     }
 
     /**

@@ -23,7 +23,7 @@ class ContentEngineTest extends TestCase
         $actual = $actual->count();
         $expected = 1;
 
-        $this->assertEquals($expected, $actual);
+        $this->assertSame($expected, $actual);
     }
 
 }
