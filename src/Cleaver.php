@@ -24,14 +24,14 @@ class Cleaver
         $this->basePath = $basePath ? $basePath : dirname(__FILE__, 2);
     }
 
-    public function build(): void
+    public function build(?string $pageBuildOverride = null): void
     {
         $blade = new BladeEngine($this->basePath);
 
         $fileEngine = new FileEngine($this->basePath);
         $fileEngine->cleanOutputDir();
 
-        foreach($fileEngine->getContentFiles() as $contentFile) {
+        foreach($fileEngine->getContentFiles($pageBuildOverride) as $contentFile) {
             $compiler = null;
             $ext = pathinfo($contentFile, PATHINFO_EXTENSION);
             switch($ext) {
@@ -48,7 +48,7 @@ class Cleaver
             }
 
             if($compiler && $compiler->checkFormatting()) {
-                $compiler->json->content = ContentEngine::generateCollection($fileEngine);
+                $compiler->json->content = ContentEngine::generateCollection($fileEngine, $pageBuildOverride);
                 $blade->save($blade->render($compiler->json));
                 echo Display::success($compiler->file . ' saved successfully.');
 

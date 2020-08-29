@@ -61,11 +61,12 @@ class FileEngine
         $filesystem->remove($directoriesToRemove);
     }
 
-    public function getContentFiles(): Finder
+    public function getContentFiles(?string $pageBuildOverride = null): Finder
     {
         $finder = new Finder();
         return $finder->files()
             ->in(self::$contentDir)
+            ->path($pageBuildOverride)
             ->ignoreDotFiles(true)
             ->name(['*.json', '*.md', '*.markdown'])
             ->sortByModifiedTime();

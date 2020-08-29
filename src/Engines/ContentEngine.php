@@ -10,10 +10,10 @@ use Tightenco\Collect\Support\Collection;
 class ContentEngine
 {
 
-    public static function generateCollection(FileEngine $fileEngine): Collection
+    public static function generateCollection(FileEngine $fileEngine, ?string $pageBuildOverride): Collection
     {
         $content = [];
-        foreach($fileEngine->getContentFiles() as $contentFile) {
+        foreach($fileEngine->getContentFiles($pageBuildOverride) as $contentFile) {
             $compiler = null;
             $ext = pathinfo($contentFile, PATHINFO_EXTENSION);
             switch($ext) {
