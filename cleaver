@@ -1,11 +1,15 @@
 #!/usr/bin/env php
 <?php
 
-use Aschmelyun\Cleaver\Cleaver;
-
 if (file_exists(__DIR__.'/vendor/autoload.php')) {
     require __DIR__.'/vendor/autoload.php';
 }
 
-$cleaver = new Cleaver(dirname(__FILE__));
-$cleaver->build();
+use Symfony\Component\Console\Application;
+use Aschmelyun\Cleaver\Commands\BuildCommand;
+
+$application = new Application('Cleaver', '1.5');
+
+$application->add(new BuildCommand());
+
+$application->run();
