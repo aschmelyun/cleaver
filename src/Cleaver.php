@@ -48,7 +48,7 @@ class Cleaver
             }
 
             if($compiler && $compiler->checkFormatting()) {
-                $compiler->json->content = ContentEngine::generateCollection($fileEngine, $pageBuildOverride);
+                $compiler->json->cleaver = ContentEngine::generateCollection($fileEngine, $pageBuildOverride);
                 $blade->save($blade->render($compiler->json));
                 echo Display::success($compiler->file . ' saved successfully.');
 
