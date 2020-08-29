@@ -18,9 +18,9 @@
         "symfony/finder": "^4.2",
         "codedungeon/php-cli-colors": "~1.0",
         "ext-json": "*",
-        "erusev/parsedown": "^1.7",
         "symfony/filesystem": "^4.4",
-        "tightenco/collect": "^7.3"
+        "tightenco/collect": "^7.3",
+        "erusev/parsedown-extra": "^0.8.1"
     },
     "require-dev": {
         "phpunit/phpunit": "~7.0"

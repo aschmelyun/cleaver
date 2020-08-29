@@ -37,7 +37,7 @@ class MarkdownCompiler
         }
 
         $body = explode('---', $markdown, 3);
-        $parsedown = new \Parsedown();
+        $parsedown = new \ParsedownExtra();
         $json->body = $parsedown->text(end($body));
 
         return $json;
