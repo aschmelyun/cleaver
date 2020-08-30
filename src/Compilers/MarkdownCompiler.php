@@ -33,7 +33,20 @@ class MarkdownCompiler
 
         foreach($headers as $header) {
             $headerParts = explode(':', $header, 2);
-            $json->{$headerParts[0]} = trim($headerParts[1]);
+
+            $idx = $headerParts[0];
+            $item = trim($headerParts[1]);
+
+            $json->{$idx} = $item;
+
+            if (
+                (substr($item, 0, 5) === '/data') &&
+                (substr($item, -5, 5) === '.json') &&
+                (file_exists(FileEngine::$resourceDir . $item))
+            ) {
+                $json->{$idx} = json_decode(file_get_contents(FileEngine::$resourceDir . $item));
+            }
+
         }
 
         $body = explode('---', $markdown, 3);

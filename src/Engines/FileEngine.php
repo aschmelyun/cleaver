@@ -10,6 +10,7 @@ class FileEngine
 
     private static $basePath;
 
+    public static $resourceDir;
     public static $contentDir;
     public static $outputDir;
     public static $mixManifest;
@@ -18,6 +19,7 @@ class FileEngine
     {
         self::$basePath = !empty($basePath) ? $basePath : dirname(__FILE__, 3);
 
+        self::$resourceDir = self::$basePath . '/resources';
         self::$contentDir = self::$basePath . '/resources/content';
         self::$outputDir = self::$basePath . '/dist';
         self::$mixManifest = self::$basePath . '/mix-manifest.json';

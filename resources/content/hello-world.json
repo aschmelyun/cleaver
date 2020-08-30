@@ -3,6 +3,7 @@
     "path": "/",
     "title": "Let's get started",
     "description": "Creating a project with Cleaver takes less than 5 minutes using Composer and NPM, and your sites are built in milliseconds.",
+    "imports": "/data/example.json",
     "sections": [
         {
             "title": "Adding Content",
