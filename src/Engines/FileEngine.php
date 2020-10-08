@@ -88,7 +88,7 @@ class FileEngine
 
         $outputPath = self::$outputDir . $path;
         if ($fs->extension($path) !== 'html') {
-            $outputPath = $outputDir . '/index.html';
+            $outputPath .= '/index.html';
         }
 
         $outputDir = $fs->dirname($outputPath);
