@@ -28,6 +28,8 @@ mix.browserSync({
                 command.get('php cleaver', (error, stdout, stderr) => {
                     console.log(error ? stderr : stdout);
                 });
+                
+                this.reload();
             }
         }
     ]
