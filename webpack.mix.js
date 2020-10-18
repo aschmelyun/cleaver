@@ -20,7 +20,7 @@ mix.setPublicPath('./')
    .options({
        processCssUrls: false
    })
-   .tailwind()
+   .tailwind('./tailwind.config.js')
    .version();
 
 mix.browserSync({
