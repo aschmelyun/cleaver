@@ -25,14 +25,19 @@ class FileEngine
         self::$mixManifest = self::$basePath . '/mix-manifest.json';
     }
 
-    public static function contentDir(): string
+    public static function basePath(bool $includeTrailingSlash = true): string
     {
-        return self::$contentDir . '/';
+        return $includeTrailingSlash ? self::$basePath . '/' : self::$basePath;
     }
 
-    public static function outputDir(): string
+    public static function contentDir(bool $includeTrailingSlash = true): string
     {
-        return self::$outputDir . '/';
+        return $includeTrailingSlash ? self::$contentDir . '/' : self::$contentDir;
+    }
+
+    public static function outputDir(bool $includeTrailingSlash = true): string
+    {
+        return $includeTrailingSlash ? self::$outputDir . '/' : self::$outputDir;
     }
 
     public static function mixManifest(): string

@@ -47,16 +47,14 @@ class Cleaver
                     break;
             }
 
-            if($compiler && $compiler->checkFormatting()) {
+            if($compiler && $compiler->checkContent()) {
                 $compiler->json->cleaver = ContentEngine::generateCollection($fileEngine, $pageBuildOverride);
+
                 $blade->save($blade->render($compiler->json));
                 echo Display::success($compiler->file . ' saved successfully.');
 
                 $this->buildAmount++;
-            } else {
-                echo Display::error($compiler->file . ' could not be rendered, skipping this page.');
             }
-
         }
 
         $this->buildTime['end'] = microtime(true);

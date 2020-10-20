@@ -3,6 +3,7 @@
 namespace Aschmelyun\Cleaver\Compilers;
 
 use Aschmelyun\Cleaver\Engines\FileEngine;
+use Aschmelyun\Cleaver\Output\Display;
 use Symfony\Component\Finder\SplFileInfo;
 use Zttp\Zttp;
 
@@ -47,9 +48,19 @@ class JsonCompiler
         $this->json->mix = FileEngine::mixManifestData();
     }
 
-    public function checkFormatting(): bool
+    public function checkContent(): bool
     {
-        return (isset($this->json->view) && isset($this->json->path));
+        if (!isset($this->json->view)) {
+            Display::error($this->file . ' could not be rendered, skipping this page.');
+            return false;
+        }
+
+        if (!isset($this->json->path)) {
+            $path = str_replace(FileEngine::contentDir(false), '', $this->file);
+            $this->json->path = pathinfo($path, PATHINFO_DIRNAME) . '/' . pathinfo($path, PATHINFO_FILENAME);
+        }
+
+        return true;
     }
 
 }

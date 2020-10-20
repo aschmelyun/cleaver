@@ -28,7 +28,7 @@ class ContentEngine
                     break;
             }
 
-            if($compiler && $compiler->checkFormatting()) {
+            if($compiler && $compiler->checkContent()) {
                 $content[] = $compiler->json;
             }
         }
