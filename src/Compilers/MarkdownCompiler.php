@@ -5,6 +5,7 @@ namespace Aschmelyun\Cleaver\Compilers;
 use Aschmelyun\Cleaver\Engines\FileEngine;
 use Symfony\Component\Finder\SplFileInfo;
 use Aschmelyun\Cleaver\Output\Display;
+use Aschmelyun\Cleaver\Output\Console;
 
 class MarkdownCompiler
 {
@@ -57,10 +58,12 @@ class MarkdownCompiler
         return $json;
     }
 
-    public function checkContent(): bool
+    public function checkContent(bool $showErrors = true): bool
     {
-        if (!isset($this->json->view)) {
-            Display::error($this->file . ' could not be rendered, skipping this page.');
+        $console = Console::init();
+
+        if ($showErrors && !isset($this->json->view)) {
+            $console->error($this->file, 'the view attribute is missing');
             return false;
         }
 

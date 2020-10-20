@@ -8,12 +8,12 @@ use Aschmelyun\Cleaver\Engines\BladeEngine;
 use Aschmelyun\Cleaver\Engines\ContentEngine;
 use Aschmelyun\Cleaver\Engines\FileEngine;
 use Aschmelyun\Cleaver\Output\Display;
+use Aschmelyun\Cleaver\Output\Console;
 
 class Cleaver
 {
 
     private $buildTime;
-    private $buildAmount = 0;
     private $basePath;
 
     public function __construct(?string $basePath = null)
@@ -31,6 +31,8 @@ class Cleaver
         $fileEngine = new FileEngine($this->basePath);
         $fileEngine->cleanOutputDir();
 
+        $console = Console::init();
+
         foreach($fileEngine->getContentFiles($pageBuildOverride) as $contentFile) {
             $compiler = null;
             $ext = pathinfo($contentFile, PATHINFO_EXTENSION);
@@ -43,26 +45,27 @@ class Cleaver
                     $compiler = new MarkdownCompiler($contentFile);
                     break;
                 default:
-                    echo Display::error($contentFile . ' was not rendered, needs to be a json or markdown file.');
+                    $console->error($contentFile, 'needs to be a json or markdown file');
                     break;
             }
 
             if($compiler && $compiler->checkContent()) {
                 $compiler->json->cleaver = ContentEngine::generateCollection($fileEngine, $pageBuildOverride);
 
-                $blade->save($blade->render($compiler->json));
-                echo Display::success($compiler->file . ' saved successfully.');
+                if ($blade->save($blade->render($compiler->json))) {
+                    $console->build($compiler->file, $compiler->json->path);
+                    continue;
+                }
 
-                $this->buildAmount++;
+                $console->error($compiler->file, 'there was a problem saving');
+                continue;                
             }
         }
 
         $this->buildTime['end'] = microtime(true);
 
-        $buildTime = round((($this->buildTime['end'] - $this->buildTime['start'])*1000), 2);
-        $pages = $this->buildAmount === 1 ? 'page' : 'pages';
+        $console->end($this->buildTime);
 
-        echo Display::complete($this->buildAmount . ' ' . $pages . ' built in ' . $buildTime . 'ms');
     }
 
 }
