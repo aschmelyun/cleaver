@@ -10,13 +10,15 @@ class Compiler
 
     public $json;
     public $file;
-    
+
     public function checkContent(bool $showErrors = true): bool
     {
         $console = Console::init();
 
-        if ($showErrors && !isset($this->json->view)) {
-            $console->error($this->file, 'the view attribute is missing');
+        if (!isset($this->json->view)) {
+            if ($showErrors) {
+                $console->error($this->file, 'the view attribute is missing');
+            }
             return false;
         }
 

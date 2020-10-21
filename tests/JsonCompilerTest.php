@@ -55,13 +55,13 @@ class JsonCompilerTest extends TestCase
         $contentFile = new SplFileInfo($contentFile, FileEngine::contentDir(), $contentFile);
         $compiler = new JsonCompiler($contentFile);
 
-        $this->assertFalse($compiler->checkFormatting());
+        $this->assertFalse($compiler->checkContent(false));
     }
 
     /**
      * @test
      */
-    public function will_return_false_for_formatting_json_files_without_path_set()
+    public function will_return_true_for_formatting_json_files_without_path_set()
     {
         $content = [
             'view' => 'layout.test',
@@ -74,7 +74,7 @@ class JsonCompilerTest extends TestCase
         $contentFile = new SplFileInfo($contentFile, FileEngine::contentDir(), $contentFile);
         $compiler = new JsonCompiler($contentFile);
 
-        $this->assertFalse($compiler->checkFormatting());
+        $this->assertTrue($compiler->checkContent(false));
     }
 
     /**
@@ -94,7 +94,7 @@ class JsonCompilerTest extends TestCase
         $contentFile = new SplFileInfo($contentFile, FileEngine::contentDir(), $contentFile);
         $compiler = new JsonCompiler($contentFile);
 
-        $this->assertTrue($compiler->checkFormatting());
+        $this->assertTrue($compiler->checkContent(false));
     }
 
 }
