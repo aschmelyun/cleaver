@@ -3,16 +3,11 @@
 namespace Aschmelyun\Cleaver\Compilers;
 
 use Aschmelyun\Cleaver\Engines\FileEngine;
-use Aschmelyun\Cleaver\Output\Display;
-use Aschmelyun\Cleaver\Output\Console;
 use Symfony\Component\Finder\SplFileInfo;
 use Zttp\Zttp;
 
-class JsonCompiler
+class JsonCompiler extends Compiler
 {
-
-    public $json;
-    public $file;
 
     public function __construct(SplFileInfo $file)
     {
@@ -47,23 +42,6 @@ class JsonCompiler
         }
 
         $this->json->mix = FileEngine::mixManifestData();
-    }
-
-    public function checkContent(bool $showErrors = true): bool
-    {
-        $console = Console::init();
-
-        if ($showErrors && !isset($this->json->view)) {
-            $console->error($this->file, 'the view attribute is missing');
-            return false;
-        }
-
-        if (!isset($this->json->path)) {
-            $path = str_replace(FileEngine::contentDir(false), '', $this->file);
-            $this->json->path = pathinfo($path, PATHINFO_DIRNAME) . '/' . pathinfo($path, PATHINFO_FILENAME);
-        }
-
-        return true;
     }
 
 }
