@@ -3,7 +3,7 @@ let command = require('node-cmd'),
 
 module.exports = {
     cleaver: new AfterWebpack(() => {
-        command.get('php cleaver', (error, stdout, stderr) => {
+        command.get('php cleaver build', (error, stdout, stderr) => {
             console.log(error ? stderr : stdout);
         });
     })

@@ -42,6 +42,11 @@ class BladeEngine
 
     public function save(string $html): bool
     {
+        if (isset($this->data->path)) {
+            return FileEngine::store($html, $this->data->path);
+        }
+
+
         return FileEngine::store($html, $this->data->path);
     }
 

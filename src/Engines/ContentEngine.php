@@ -10,10 +10,10 @@ use Tightenco\Collect\Support\Collection;
 class ContentEngine
 {
 
-    public static function generateCollection(FileEngine $fileEngine): Collection
+    public static function generateCollection(FileEngine $fileEngine, ?string $pageBuildOverride = null): Collection
     {
         $content = [];
-        foreach($fileEngine->getContentFiles() as $contentFile) {
+        foreach($fileEngine->getContentFiles($pageBuildOverride) as $contentFile) {
             $compiler = null;
             $ext = pathinfo($contentFile, PATHINFO_EXTENSION);
             switch($ext) {
@@ -28,7 +28,7 @@ class ContentEngine
                     break;
             }
 
-            if($compiler && $compiler->checkFormatting()) {
+            if($compiler && $compiler->checkContent(false)) {
                 $content[] = $compiler->json;
             }
         }

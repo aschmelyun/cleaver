@@ -8,7 +8,10 @@ mix.disableNotifications();
 mix.webpackConfig({
     plugins: [
         build.cleaver
-    ]
+    ],
+    devServer: {
+        contentBase: path.join(__dirname, 'dist')
+    }
 });
 
 mix.setPublicPath('./')
@@ -17,18 +20,20 @@ mix.setPublicPath('./')
    .options({
        processCssUrls: false
    })
-   .tailwind()
+   .tailwind('./tailwind.config.js')
    .version();
 
 mix.browserSync({
     files: [
+        "dist/**/*",
         {
             match: ["resources/**/*"],
             fn: function(event, file) {
-                command.get('php cleaver', (error, stdout, stderr) => {
+                command.get('php cleaver build', (error, stdout, stderr) => {
                     console.log(error ? stderr : stdout);
                 });
             }
         }
-    ]
+    ],
+    proxy: 'localhost:8080'
 });

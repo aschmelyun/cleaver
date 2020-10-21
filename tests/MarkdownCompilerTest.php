@@ -63,13 +63,13 @@ class MarkdownCompilerTest extends TestCase
         $contentFile = new SplFileInfo($contentFile, FileEngine::contentDir(), $contentFile);
         $compiler = new MarkdownCompiler($contentFile);
 
-        $this->assertFalse($compiler->checkFormatting());
+        $this->assertFalse($compiler->checkContent(false));
     }
 
     /**
      * @test
      */
-    public function will_return_false_for_formatting_markdown_files_without_path_set()
+    public function will_return_true_for_formatting_markdown_files_without_path_set()
     {
         $content = '
         ---
@@ -86,7 +86,7 @@ class MarkdownCompilerTest extends TestCase
         $contentFile = new SplFileInfo($contentFile, FileEngine::contentDir(), $contentFile);
         $compiler = new MarkdownCompiler($contentFile);
 
-        $this->assertFalse($compiler->checkFormatting());
+        $this->assertTrue($compiler->checkContent(false));
     }
 
     /**
@@ -110,7 +110,7 @@ class MarkdownCompilerTest extends TestCase
         $contentFile = new SplFileInfo($contentFile, FileEngine::contentDir(), $contentFile);
         $compiler = new MarkdownCompiler($contentFile);
 
-        $this->assertTrue($compiler->checkFormatting());
+        $this->assertTrue($compiler->checkContent(false));
     }
 
 }

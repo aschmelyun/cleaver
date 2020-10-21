@@ -10,6 +10,7 @@ class FileEngine
 
     private static $basePath;
 
+    public static $resourceDir;
     public static $contentDir;
     public static $outputDir;
     public static $mixManifest;
@@ -18,19 +19,25 @@ class FileEngine
     {
         self::$basePath = !empty($basePath) ? $basePath : dirname(__FILE__, 3);
 
+        self::$resourceDir = self::$basePath . '/resources';
         self::$contentDir = self::$basePath . '/resources/content';
         self::$outputDir = self::$basePath . '/dist';
         self::$mixManifest = self::$basePath . '/mix-manifest.json';
     }
 
-    public static function contentDir(): string
+    public static function basePath(bool $includeTrailingSlash = true): string
     {
-        return self::$contentDir . '/';
+        return $includeTrailingSlash ? self::$basePath . '/' : self::$basePath;
     }
 
-    public static function outputDir(): string
+    public static function contentDir(bool $includeTrailingSlash = true): string
     {
-        return self::$outputDir . '/';
+        return $includeTrailingSlash ? self::$contentDir . '/' : self::$contentDir;
+    }
+
+    public static function outputDir(bool $includeTrailingSlash = true): string
+    {
+        return $includeTrailingSlash ? self::$outputDir . '/' : self::$outputDir;
     }
 
     public static function mixManifest(): string
@@ -61,11 +68,12 @@ class FileEngine
         $filesystem->remove($directoriesToRemove);
     }
 
-    public function getContentFiles(): Finder
+    public function getContentFiles(?string $pageBuildOverride = null): Finder
     {
         $finder = new Finder();
         return $finder->files()
             ->in(self::$contentDir)
+            ->path($pageBuildOverride)
             ->ignoreDotFiles(true)
             ->name(['*.json', '*.md', '*.markdown'])
             ->sortByModifiedTime();

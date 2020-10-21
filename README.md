@@ -39,7 +39,13 @@ There's a bootstrapped JavaScript file that imports lodash, jQuery, and Vue depe
 
 To compile the SCSS/JS assets and build the static site files, you can run `npm run dev` from the root. Additionally, using `npm run watch` starts up a local node server that you can use to view your compiled project, and will watch the entire `resources/` directory for changes to any assets, views, or content files.
 
-If you would like to build your site without compiling the assets, run the `php cleaver` command from the project root.
+If you would like to build your site without compiling the assets, run the `php cleaver build` command from the project root.
+
+## Commands and arguments
+
+If you build the site by calling `php cleaver` directly, here's a list of the current commands and accompanying arguments you can use:
+
+- `php cleaver build {page}` builds the current site, rendering your content in the `resources/content` directory and outputting HTML organized in a directory tree to `/dist`. You can choose to render a single page or just a specific path in your content by including a `page` argument. (e.g. `php cleaver build posts/my-cool-post.md`)
 
 ## Publishing your site
 
