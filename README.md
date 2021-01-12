@@ -12,7 +12,7 @@ composer create-project aschmelyun/cleaver your-site-name
 ```
 
 ## Requirements
-- PHP 7.2.5 or higher
+- PHP 7.3 or higher
 - Fairly recent versions of node + npm 
 
 ## Installation
