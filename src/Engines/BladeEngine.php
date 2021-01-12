@@ -2,7 +2,7 @@
 
 namespace Aschmelyun\Cleaver\Engines;
 
-use Philo\Blade\Blade;
+use Aschmelyun\Blade\Blade;
 
 class BladeEngine
 {
