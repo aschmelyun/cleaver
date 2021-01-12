@@ -9,7 +9,6 @@ sudo: false
 
 env:
   matrix:
-    - COMPOSER_FLAGS="--prefer-lowest"
     - COMPOSER_FLAGS=""
 
 before_script:
