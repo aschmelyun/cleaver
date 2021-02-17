@@ -21,7 +21,7 @@ class ContentEngineTest extends TestCase
         $this->assertInstanceOf($expected, $actual);
 
         $actual = $actual->count();
-        $expected = 1;
+        $expected = count($fileEngine->getContentFiles());
 
         $this->assertEquals($expected, $actual);
     }
