@@ -8,7 +8,7 @@ if (file_exists(__DIR__.'/vendor/autoload.php')) {
 use Symfony\Component\Console\Application;
 use Aschmelyun\Cleaver\Commands\BuildCommand;
 
-$application = new Application('Cleaver', '1.5');
+$application = new Application('Cleaver', '1.5.7');
 
 $application->add(new BuildCommand());
 
