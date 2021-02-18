@@ -10,7 +10,7 @@
     },
     "devDependencies": {
         "bootstrap": "^4.4.1",
-        "browser-sync": "^2.26.12",
+        "browser-sync": "^2.26.14",
         "browser-sync-webpack-plugin": "^2.0.1",
         "cross-env": "^3.2.3",
         "jquery": "^3.5.0",
