@@ -11,6 +11,8 @@
 composer create-project aschmelyun/cleaver your-site-name
 ```
 
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/aschmelyun/cleaver)
+
 ## Requirements
 - PHP 7.3 or higher
 - Fairly recent versions of node + npm 
