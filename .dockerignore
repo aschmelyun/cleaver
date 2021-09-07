@@ -1,0 +1,7 @@
+.git
+.idea
+node_modules
+vendor
+dist
+cache
+webpack.mix.js
