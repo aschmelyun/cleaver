@@ -46,6 +46,6 @@ EXPOSE 3001
 
 VOLUME ["/var/www/html", "dist"]
 
-ENTRYPOINT ["/bin/sh", "-c", "composer install && npm install && npm run"]
+RUN chmod +x docker-entrypoint.sh
 
-CMD ["watch"]
+ENTRYPOINT ["/bin/sh", "docker-entrypoint.sh"]
