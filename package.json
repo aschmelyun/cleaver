@@ -1,30 +1,28 @@
 {
     "private": true,
     "scripts": {
-        "local": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --env=local --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "staging": "cross-env NODE_ENV=staging node_modules/webpack/bin/webpack.js --progress --hide-modules --env=staging --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "watch": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --env=local --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --env=production --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "dev": "npm run local",
-        "prod": "npm run production"
+        "dev": "npm run development",
+        "development": "mix",
+        "watch": "mix watch",
+        "watch-poll": "mix watch -- --watch-options-poll=1000",
+        "hot": "mix watch --hot",
+        "prod": "npm run production",
+        "production": "mix --production"
     },
-    "devDependencies": {
-        "bootstrap": "^4.4.1",
-        "browser-sync": "^2.26.14",
-        "browser-sync-webpack-plugin": "^2.0.1",
-        "cross-env": "^3.2.3",
-        "jquery": "^3.5.0",
-        "laravel-mix": "^5.0.7",
+    "dependencies": {
+        "autoprefixer": "^10.3.4",
+        "browser-sync": "^2.27.5",
+        "browser-sync-webpack-plugin": "^2.3.0",
+        "jquery": "^3.6.0",
         "lodash": "^4.17.21",
-        "mix-tailwindcss": "^1.2.0",
-        "node-cmd": "^3.0.0",
-        "on-build-webpack": "^0.1.0",
-        "popper.js": "1.16.0",
-        "sass": "^1.26.3",
-        "sass-loader": "^8.0.2",
-        "tailwindcss": "^1.1.4",
-        "vue": "^2.6.10",
-        "vue-template-compiler": "^2.6.11",
-        "webpack-watch": "^0.2.0"
+        "mix-tailwindcss": "^1.3.0",
+        "node-cmd": "^5.0.0",
+        "on-build-webpack2": "^0.2.0",
+        "postcss": "^8.3.6",
+        "sass": "^1.39.0",
+        "sass-loader": "^12.1.0",
+        "tailwindcss": "^2.2.10",
+        "vue": "^2.6.14",
+        "vue-template-compiler": "^2.6.14"
     }
 }

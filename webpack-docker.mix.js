@@ -1,41 +1,39 @@
 let mix = require('laravel-mix'),
     build = require('./cleaver.build.js'),
-    command = require('node-cmd');
+    command = require('node-cmd')
+    path = require('path');
 
-require('mix-tailwindcss');
-
-mix.disableNotifications();
-mix.webpackConfig({
-    plugins: [
-        build.cleaver
-    ],
-    devServer: {
-        contentBase: path.join(__dirname, 'dist')
-    }
-});
-
-mix.setPublicPath('./')
-   .js('resources/assets/js/app.js', 'dist/assets/js')
-   .sass('resources/assets/sass/app.scss', 'dist/assets/css')
-   .options({
-       processCssUrls: false
-   })
-   .tailwind('./tailwind.config.js')
-   .version();
-
-mix.browserSync({
-    files: [
-        "dist/**/*",
-        {
-            match: ["resources/**/*"],
-            fn: function(event, file) {
-                command.get('php cleaver build', (error, stdout, stderr) => {
-                    console.log(error ? stderr : stdout);
-                });
-            }
+mix.disableNotifications()
+    .webpackConfig({
+        plugins: [
+            build.cleaver
+        ],
+        devServer: {
+            contentBase: path.join(__dirname, 'dist')
         }
-    ],
-    proxy: '0.0.0.0:8080',
-    notify: false,
-    open: false
-});
+    })
+    .setPublicPath('./')
+    .js('resources/assets/js/app.js', 'dist/assets/js')
+    .postCss('resources/assets/css/app.css', 'dist/assets/css', [
+        require('tailwindcss')
+    ])
+    .options({
+        processCssUrls: false
+    })
+    .version()
+    .browserSync({
+        files: [
+            "dist/**/*",
+            {
+                match: ["resources/**/*"],
+                fn: function(event, file) {
+                    command.get('php cleaver build', (error, stdout, stderr) => {
+                        console.log(error ? stderr : stdout);
+                    });
+                }
+            }
+        ],
+        proxy: '0.0.0.0:8080',
+        notify: false,
+        open: false
+    });
