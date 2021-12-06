@@ -2,7 +2,6 @@
 
 [![Current Version](https://img.shields.io/packagist/v/aschmelyun/cleaver.svg?style=flat-square)](https://packagist.org/packages/aschmelyun/cleaver)
 ![License](https://img.shields.io/github/license/aschmelyun/cleaver.svg?style=flat-square)
-[![Build Status](https://img.shields.io/travis/aschmelyun/cleaver/master.svg?style=flat-square)](https://travis-ci.org/aschmelyun/cleaver)
 [![Total Downloads](https://img.shields.io/packagist/dt/aschmelyun/cleaver.svg?style=flat-square)](https://packagist.org/packages/aschmelyun/cleaver)
 
 :fire: A blazing-fast static site generator that uses Laravel's Blade templating engine and leverages JSON or Markdown files for super-extensible content.
