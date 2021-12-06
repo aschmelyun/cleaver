@@ -2,10 +2,9 @@ FROM node:current-alpine
 
 LABEL maintainer="Andrew Schmelyun <me@aschmelyun.com>"
 
-RUN mkdir -p /var/www/html
-WORKDIR /var/www/html
+RUN mkdir -p /var/www
 
-ADD . /var/www/html
+WORKDIR /var/www
 
 RUN apk update && apk add --no-cache \
     curl \
@@ -36,15 +35,17 @@ RUN ln -s /usr/bin/php8 /usr/bin/php
 RUN curl -sS https://getcomposer.org/installer | \
   php -- --install-dir=/usr/bin --filename=composer
 
+RUN composer create-project aschmelyun/cleaver .
+
 RUN mv webpack-docker.mix.js webpack.mix.js
+
+RUN npm install
 
 STOPSIGNAL SIGINT
 
 EXPOSE 8080
 EXPOSE 3000
 EXPOSE 3001
-
-VOLUME ["/var/www/html", "dist"]
 
 RUN chmod +x docker-entrypoint.sh
 
