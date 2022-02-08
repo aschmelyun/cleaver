@@ -3,7 +3,7 @@
 namespace Aschmelyun\Cleaver\Engines;
 
 use Symfony\Component\Finder\Finder;
-use Symfony\Component\Filesystem\Filesystem;
+use Illuminate\Filesystem\Filesystem;
 
 class FileEngine
 {
@@ -58,14 +58,14 @@ class FileEngine
             ->ignoreDotFiles($ignoreDotFiles)
             ->exclude($exclude);
 
-        $filesystem->remove($filesToRemove);
+        $filesystem->delete($filesToRemove);
 
         $directoriesToRemove = $finder->directories()
             ->in(self::$outputDir)
             ->ignoreDotFiles($ignoreDotFiles)
             ->exclude($exclude);
 
-        $filesystem->remove($directoriesToRemove);
+        $filesystem->delete($directoriesToRemove);
     }
 
     public function getContentFiles(?string $pageBuildOverride = null): Finder
@@ -89,12 +89,21 @@ class FileEngine
 
     public static function store(string $html, string $path): bool
     {
-        $outputDir = self::$outputDir . $path;
 
-        if(!is_dir($outputDir))
+        $fs = new Filesystem();
+
+        $extension = $fs->extension($path);
+
+        $outputPath = self::$outputDir . $path;
+        if ($fs->extension($path) !== 'html') {
+            $outputPath .= '/index.html';
+        }
+
+        $outputDir = $fs->dirname($outputPath);
+
+        if (! is_dir($outputDir)) {
             mkdir($outputDir, 0755, true);
-
-        $outputPath = $outputDir . '/index.html';
+        }
 
         return boolval(file_put_contents($outputPath, $html));
     }
