@@ -32,15 +32,15 @@ class MarkdownCompilerTest extends TestCase
 
         $expected = 'layout.test';
         $actual = $compiler->json->view;
-        $this->assertEquals($expected, $actual);
+        $this->assertSame($expected, $actual);
 
         $expected = '/';
         $actual = $compiler->json->path;
-        $this->assertEquals($expected, $actual);
+        $this->assertSame($expected, $actual);
 
         $expected = 'This is a test';
         $actual = $compiler->json->title;
-        $this->assertEquals($expected, $actual);
+        $this->assertSame($expected, $actual);
     }
 
     /**
