@@ -1,6 +1,0 @@
-[build]
-  command = "npm run production"
-  publish = "dist"
-
-[context.deploy-preview]
-  command = "npm run dev"
